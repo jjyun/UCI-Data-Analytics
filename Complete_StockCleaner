@@ -1,0 +1,45 @@
+Sub cleaner()
+
+'Concecutive WS block
+For Each ws In Worksheets
+
+  'initialize variables
+  Dim StockSym As String
+  Dim StockTotal As Double
+  Dim SummaryRow As Integer
+  Dim SymbolHeader As String
+  Dim TotalHeader As String
+
+  'Set variables
+  lastrow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+  StockTotal = 0
+  SummaryRow = 2
+  SymbolHeader = "STOCK SYMBOL"
+  TotalHeader = "TOTAL VOLUME"
+
+  'Format column width
+  ws.Columns("I").ColumnWidth = 18
+  ws.Columns("J").ColumnWidth = 20
+
+  'Format currency
+  ws.Columns("J").NumberFormat = "$#,##0.00"
+
+  'Create table titles
+  ws.Cells(1, 9).Value = SymbolHeader
+  ws.Cells(1, 10).Value = TotalHeader
+
+  'Begin for loop to go row by row
+  For i = 2 To lastrow
+    If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
+      StockSym = ws.Cells(i, 1).Value
+      StockTotal = StockTotal + ws.Cells(i, 7).Value
+      ws.Range("I" & SummaryRow).Value = StockSym
+      ws.Range("J" & SummaryRow).Value = StockTotal
+      SummaryRow = SummaryRow + 1
+      StockTotal = 0
+    Else
+      StockTotal = StockTotal + ws.Cells(i, 7).Value
+    End If
+  Next i
+Next ws
+End Sub
