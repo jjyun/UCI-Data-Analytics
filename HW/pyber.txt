@@ -1,0 +1,3 @@
+1.	One of the observable trends in the data is that urban cities generate more rides.
+2.	Rural cities may not be as common but their fares are usually larger
+3.	There are more uber drivers in urban settings.
