@@ -50,6 +50,7 @@ function buildCharts(sample) {
       labels: otu_ids.slice(0,10),
       type: "pie"
     }];
+    plotly.plot("pie", pie)
 
 }
 
